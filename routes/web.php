@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//ROUTE TO RENDER MAIN PAGE
+
 Route::get('/', function () {
   return view('index');
 });
+
+//ROUTE TO RENDER SINGLE PAGE
+
+Route::view('/idea', 'show');
+
+
+
+
 
 
 
