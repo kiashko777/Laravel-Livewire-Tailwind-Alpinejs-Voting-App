@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,18 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 //ROUTE TO RENDER MAIN PAGE
 
-Route::get('/', function () {
-  return view('index');
-});
+Route::get('/', [IdeaController::class, 'index'])->name('idea.index');
+
 
 //ROUTE TO RENDER SINGLE PAGE
 
-Route::view('/idea', 'show');
-
-
-
-
-
+Route::get('/ideas{idea:slug}', [IdeaController::class, 'show'])->name('idea.show');
 
 
 require __DIR__ . '/auth.php';

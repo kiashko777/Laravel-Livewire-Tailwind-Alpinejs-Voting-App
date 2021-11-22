@@ -12,8 +12,9 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@livewireStyles
 
-  <!-- Scripts -->
+<!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="font-sans bg-gray-background text-gray-900 text-sm">
@@ -129,5 +130,6 @@
     </div>
   </div>
 </main>
+@livewireScripts
 </body>
 </html>
