@@ -35,4 +35,20 @@ class Idea extends Model
   {
     return $this->belongsTo(User::class);
   }
+
+
+  //RELATIONSHIP BETWEEN IDEA AND CATEGORY
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
+
+
+  //RELATIONSHIP BETWEEN IDEA AND STATUS
+
+  public function status()
+  {
+    return $this->belongsTo(Status::class);
+  }
 }
