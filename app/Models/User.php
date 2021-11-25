@@ -53,6 +53,14 @@ class User extends Authenticatable
   }
 
 
+  //RELATIONSHIP BETWEEN USER AND VOTES
+
+  public function votes()
+  {
+    return $this->belongsToMany(Idea::class, 'votes');
+  }
+
+
   //METHOD TO GET AVATAR
 
   public function getAvatar()

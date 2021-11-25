@@ -51,4 +51,12 @@ class Idea extends Model
   {
     return $this->belongsTo(Status::class);
   }
+
+
+  //RELATIONSHIP BETWEEN IDEA AND STATUS
+
+  public function votes()
+  {
+    return $this->belongsToMany(User::class, 'votes');
+  }
 }
