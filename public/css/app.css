@@ -1492,6 +1492,10 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(79, 70, 229, var(--tw-text-opacity));
 }
+.text-blue {
+	--tw-text-opacity: 1;
+	color: rgba(50, 138, 241, var(--tw-text-opacity));
+}
 .text-gray-200 {
 	--tw-text-opacity: 1;
 	color: rgba(229, 229, 229, var(--tw-text-opacity));
@@ -1523,10 +1527,6 @@ select {
 .text-indigo-700 {
 	--tw-text-opacity: 1;
 	color: rgba(67, 56, 202, var(--tw-text-opacity));
-}
-.text-blue {
-	--tw-text-opacity: 1;
-	color: rgba(50, 138, 241, var(--tw-text-opacity));
 }
 .underline {
 	text-decoration: underline;
