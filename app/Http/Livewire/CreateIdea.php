@@ -9,26 +9,24 @@ use Livewire\Component;
 
 class CreateIdea extends Component
 {
-
   //METHOD TO CREATE AND VALIDATE AN IDEA
 
-  public $title;
-  public $category = 1;
-  public $description;
+    public $title;
+    public $category = 1;
+    public $description;
 
-  protected $rules = [
+    protected $rules = [
     'title' => 'required|min:4',
     'category' => 'required|integer',
     'description' => 'required|min:10',
   ];
 
+    public function createIdea()
+    {
+        $this->validate();
 
-  public function createIdea()
-  {
-    $this->validate();
-
-    if (auth()->check()) {
-      Idea::create([
+        if (auth()->check()) {
+            Idea::create([
         'user_id' => auth()->id(),
         'category_id' => $this->category,
         'status_id' => 1,
@@ -36,20 +34,20 @@ class CreateIdea extends Component
         'description' => $this->description,
       ]);
 
-      session()->flash('success_message', 'Idea was added successfully!');
-      $this->reset();
-      return redirect()->route('idea.index');
+            session()->flash('success_message', 'Idea was added successfully!');
+            $this->reset();
+
+            return redirect()->route('idea.index');
+        }
+        abort(Response::HTTP_FORBIDDEN);
     }
-    abort(Response::HTTP_FORBIDDEN);
-  }
 
+    public function render()
+    {
+        //METHOD TO RENDER THE FORM
 
-  public function render()
-  {
-    //METHOD TO RENDER THE FORM
-
-    return view('livewire.create-idea', [
-      'categories' => Category::all()
+        return view('livewire.create-idea', [
+      'categories' => Category::all(),
     ]);
-  }
+    }
 }

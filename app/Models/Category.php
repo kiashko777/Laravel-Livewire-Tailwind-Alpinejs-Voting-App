@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $guarded = [];
+    protected $guarded = [];
 
+    //RELATIONSHIP BETWEEN IDEAS AND CATEGORY
 
-  //RELATIONSHIP BETWEEN IDEAS AND CATEGORY
-
-  public function ideas()
-  {
-    return $this->hasMany(Idea::class);
-  }
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class);
+    }
 }
