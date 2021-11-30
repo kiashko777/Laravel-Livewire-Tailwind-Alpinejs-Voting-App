@@ -1593,6 +1593,9 @@ select {
 	--tw-grayscale: grayscale(100%);
 	filter: var(--tw-filter);
 }
+.filter {
+	filter: var(--tw-filter);
+}
 .transition {
 	transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
 	transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
