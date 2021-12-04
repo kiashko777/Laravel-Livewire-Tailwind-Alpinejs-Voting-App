@@ -10,7 +10,9 @@ use Livewire\Component;
 class IdeaShow extends Component
 {
     public $idea;
+
     public $votesCount;
+
     public $hasVoted;
 
     public function mount(Idea $idea, $votesCount)

@@ -9,10 +9,12 @@ use Livewire\Component;
 
 class CreateIdea extends Component
 {
-  //METHOD TO CREATE AND VALIDATE AN IDEA
+    //METHOD TO CREATE AND VALIDATE AN IDEA
 
     public $title;
+
     public $category = 1;
+
     public $description;
 
     protected $rules = [
