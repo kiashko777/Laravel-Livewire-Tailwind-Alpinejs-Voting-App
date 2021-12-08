@@ -19,6 +19,7 @@
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.6",
+    "beyondcode/helo-laravel": "^1.3",
     "brianium/paratest": "^6.3",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
@@ -42,6 +43,12 @@
     }
   },
   "scripts": {
+    "sniff": [
+      "./vendor/bin/php-cs-fixer fix -vvv --dry-run --show-progress=dots"
+    ],
+    "lint": [
+      "./vendor/bin/php-cs-fixer fix -vvv --show-progress=dots"
+    ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover --ansi"

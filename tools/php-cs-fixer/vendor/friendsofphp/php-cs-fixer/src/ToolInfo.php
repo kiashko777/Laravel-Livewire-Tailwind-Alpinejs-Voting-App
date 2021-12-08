@@ -25,89 +25,89 @@ use PhpCsFixer\Console\Application;
  */
 final class ToolInfo implements ToolInfoInterface
 {
-    public const COMPOSER_PACKAGE_NAME = 'friendsofphp/php-cs-fixer';
+  public const COMPOSER_PACKAGE_NAME = 'friendsofphp/php-cs-fixer';
 
-    public const COMPOSER_LEGACY_PACKAGE_NAME = 'fabpot/php-cs-fixer';
+  public const COMPOSER_LEGACY_PACKAGE_NAME = 'friendsofphp/php-cs-fixer';
 
-    /**
-     * @var null|array
-     */
-    private $composerInstallationDetails;
+  /**
+   * @var null|array
+   */
+  private $composerInstallationDetails;
 
-    /**
-     * @var null|bool
-     */
-    private $isInstalledByComposer;
+  /**
+   * @var null|bool
+   */
+  private $isInstalledByComposer;
 
-    public function getComposerInstallationDetails(): array
-    {
-        if (!$this->isInstalledByComposer()) {
-            throw new \LogicException('Cannot get composer version for tool not installed by composer.');
+  public function getComposerInstallationDetails(): array
+  {
+    if (!$this->isInstalledByComposer()) {
+      throw new \LogicException('Cannot get composer version for tool not installed by composer.');
+    }
+
+    if (null === $this->composerInstallationDetails) {
+      $composerInstalled = json_decode(file_get_contents($this->getComposerInstalledFile()), true);
+
+      $packages = $composerInstalled['packages'] ?? $composerInstalled;
+
+      foreach ($packages as $package) {
+        if (\in_array($package['name'], [self::COMPOSER_PACKAGE_NAME, self::COMPOSER_LEGACY_PACKAGE_NAME], true)) {
+          $this->composerInstallationDetails = $package;
+
+          break;
         }
-
-        if (null === $this->composerInstallationDetails) {
-            $composerInstalled = json_decode(file_get_contents($this->getComposerInstalledFile()), true);
-
-            $packages = $composerInstalled['packages'] ?? $composerInstalled;
-
-            foreach ($packages as $package) {
-                if (\in_array($package['name'], [self::COMPOSER_PACKAGE_NAME, self::COMPOSER_LEGACY_PACKAGE_NAME], true)) {
-                    $this->composerInstallationDetails = $package;
-
-                    break;
-                }
-            }
-        }
-
-        return $this->composerInstallationDetails;
+      }
     }
 
-    public function getComposerVersion(): string
-    {
-        $package = $this->getComposerInstallationDetails();
+    return $this->composerInstallationDetails;
+  }
 
-        $versionSuffix = '';
+  public function getComposerVersion(): string
+  {
+    $package = $this->getComposerInstallationDetails();
 
-        if (isset($package['dist']['reference'])) {
-            $versionSuffix = '#'.$package['dist']['reference'];
-        }
+    $versionSuffix = '';
 
-        return $package['version'].$versionSuffix;
+    if (isset($package['dist']['reference'])) {
+      $versionSuffix = '#' . $package['dist']['reference'];
     }
 
-    public function getVersion(): string
-    {
-        if ($this->isInstalledByComposer()) {
-            return Application::VERSION.':'.$this->getComposerVersion();
-        }
+    return $package['version'] . $versionSuffix;
+  }
 
-        return Application::VERSION;
+  public function getVersion(): string
+  {
+    if ($this->isInstalledByComposer()) {
+      return Application::VERSION . ':' . $this->getComposerVersion();
     }
 
-    public function isInstalledAsPhar(): bool
-    {
-        return str_starts_with(__DIR__, 'phar://');
+    return Application::VERSION;
+  }
+
+  public function isInstalledAsPhar(): bool
+  {
+    return str_starts_with(__DIR__, 'phar://');
+  }
+
+  public function isInstalledByComposer(): bool
+  {
+    if (null === $this->isInstalledByComposer) {
+      $this->isInstalledByComposer = !$this->isInstalledAsPhar() && file_exists($this->getComposerInstalledFile());
     }
 
-    public function isInstalledByComposer(): bool
-    {
-        if (null === $this->isInstalledByComposer) {
-            $this->isInstalledByComposer = !$this->isInstalledAsPhar() && file_exists($this->getComposerInstalledFile());
-        }
+    return $this->isInstalledByComposer;
+  }
 
-        return $this->isInstalledByComposer;
-    }
+  public function getPharDownloadUri(string $version): string
+  {
+    return sprintf(
+      'https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar',
+      $version
+    );
+  }
 
-    public function getPharDownloadUri(string $version): string
-    {
-        return sprintf(
-            'https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar',
-            $version
-        );
-    }
-
-    private function getComposerInstalledFile(): string
-    {
-        return __DIR__.'/../../../composer/installed.json';
-    }
+  private function getComposerInstalledFile(): string
+  {
+    return __DIR__ . '/../../../composer/installed.json';
+  }
 }
