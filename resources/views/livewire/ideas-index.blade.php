@@ -14,6 +14,9 @@
         <option value="No Filter">No Filter</option>
         <option value="Top Voted">Top Voted</option>
         <option value="My Ideas">My Ideas</option>
+        @admin
+        <option value="Spam Ideas">Spam Ideas</option>
+        @endadmin
       </select>
     </div>
     <div class="w-full md:w-2/3 relative">
@@ -36,7 +39,9 @@
         :votesCount="$idea->votes_count"
       />
     @empty
-      <div class="mx-auto text-gray-900 text-lg w-70 mt-16">No Ideas found!</div>
+      <div class="mx-auto w-70 mt-12">
+        <div class="text-gray-400 text-center font-bold mt-6">Congrats!No spam ideas were found...</div>
+      </div>
     @endforelse
   </div> <!-- end ideas-container -->
 

@@ -45,8 +45,8 @@ class SetStatus extends Component
         foreach ($voters as $user) {
           Mail::to($user)->queue(new IdeaStatusUpdatedMailable($this->idea));
         }
-        });
-      }
+      });
+  }
 
   public function render()
   {

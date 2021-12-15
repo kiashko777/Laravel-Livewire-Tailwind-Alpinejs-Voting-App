@@ -12,14 +12,12 @@ class CreateIdea extends Component
     //METHOD TO CREATE AND VALIDATE AN IDEA
 
     public $title;
-
     public $category = 1;
-
     public $description;
 
     protected $rules = [
     'title' => 'required|min:4',
-    'category' => 'required|integer',
+    'category' => 'required|integer|exists:categories,id',
     'description' => 'required|min:10',
   ];
 
