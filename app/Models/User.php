@@ -50,6 +50,12 @@ class User extends Authenticatable
     return $this->hasMany(Idea::class);
   }
 
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
   //RELATIONSHIP BETWEEN USER AND VOTES
 
   public function votes()
