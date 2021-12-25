@@ -13,7 +13,7 @@
             this.messageToDisplay = message
             setTimeout(() => {
                 this.isOpen = false
-            }, 5000)
+            }, 6000)
         }
     }"
   x-init="
@@ -30,6 +30,15 @@
         showNotification(message)
     })
     Livewire.on('statusWasUpdated', message => {
+        showNotification(message)
+    })
+    Livewire.on('commentWasAdded', message => {
+        showNotification(message)
+    })
+    Livewire.on('commentWasUpdated', message => {
+        showNotification(message)
+    })
+    Livewire.on('commentWasDeleted', message => {
         showNotification(message)
     })
 @endif

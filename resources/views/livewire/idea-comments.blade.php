@@ -5,6 +5,7 @@
         <livewire:idea-comment
           :key="$comment->id"
           :comment="$comment"
+          :ideaUserId="$idea->user->id"
         />
       @endforeach
 
@@ -44,8 +45,12 @@
           </div>
       </div> <!-- end comment-container --> --}}
 
-    </div> <!-- end comments-container -->
+    </div>
+    <div class="my-8 md:ml-22">
+      {{ $comments->onEachSide(1)->links() }}
+    </div><!-- end comments-container -->
   @else
+
     <div class="mx-auto w-70 mt-12">
       <div class="text-gray-400 text-center font-bold mt-6">No comments yet...be the first!</div>
     </div>
