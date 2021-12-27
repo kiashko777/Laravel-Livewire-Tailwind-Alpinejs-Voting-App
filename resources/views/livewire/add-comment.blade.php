@@ -4,13 +4,13 @@
         Livewire.on('commentWasAdded', () => {
             isOpen = false
         })
-
         Livewire.hook('message.processed', (message, component) => {
+            {{-- if (message.updateQueue[0].method === 'gotoPage' || message.updateQueue[0].method === 'nextPage' || message.updateQueue[0].method === 'previousPage') { --}}
     if (['gotoPage', 'previousPage', 'nextPage'].includes(message.updateQueue[0].method)) {
         const firstComment = document.querySelector('.comment-container:first-child')
         firstComment.scrollIntoView({ behavior: 'smooth'})
     }
-    if (message.updateQueue[0].payload.event === 'commentWasAdded'
+    if (['commentWasAdded', 'statusWasUpdated'].includes(message.updateQueue[0].payload.event)
      && message.component.fingerprint.name === 'idea-comments') {
         const lastComment = document.querySelector('.comment-container:last-child')
         lastComment.scrollIntoView({ behavior: 'smooth'})
@@ -25,13 +25,13 @@
 >
   <button
     type="button"
-    @click="isOpen = !isOpen
-    if (isOpen) {
-    $nextTick(()=>$refs.comment.focus())
-    }
-    "
-    class="flex items-center justify-center h-11 w-32 text-sm bg-blue text-white font-semibold rounded-xl border
-    border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
+    @click="
+            isOpen = !isOpen
+            if (isOpen) {
+                $nextTick(() => $refs.comment.focus())
+            }
+        "
+    class="flex items-center justify-center h-11 w-32 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
   >
     Reply
   </button>
@@ -76,7 +76,7 @@
       </form>
     @else
       <div class="px-4 py-6">
-        <p class="font-normal">Please login or register to post a comment.</p>
+        <p class="font-normal">Please login or create an account to post a comment.</p>
         <div class="flex items-center space-x-3 mt-8">
           <a
             href="{{ route('login') }}"

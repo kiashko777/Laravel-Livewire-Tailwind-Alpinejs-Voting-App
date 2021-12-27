@@ -35,7 +35,7 @@
             x-data="{ isOpen: false }"
           >
             <div
-              class="{{ $idea->status->classes }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
+              class="{{ 'status-'.Str::kebab($idea->status->name) }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
             @auth
               <div class="relative">
                 <button
@@ -45,7 +45,7 @@
                   <svg fill="currentColor" width="24" height="6">
                     <path
                       d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
-                      style="color: rgba(163, 163, 163, .5)"/>
+                      style="color: rgba(163, 163, 163, .5)" />
                   </svg>
                 </button>
                 <ul
@@ -148,7 +148,6 @@
   <div class="buttons-container flex items-center justify-between mt-6">
     <div class="flex flex-col md:flex-row items-center space-x-4 md:ml-6">
       <livewire:add-comment :idea="$idea"/>
-
       @admin
       <livewire:set-status :idea="$idea"/>
       @endadmin
