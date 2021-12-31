@@ -17,7 +17,7 @@
             <div class="text-red mb-2">Spam Reports: {{ $idea->spam_reports }}</div>
           @endif
           @endadmin
-          {{ $idea->description }}
+          {!!  $idea->description !!}
         </div>
 
         <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
@@ -45,7 +45,7 @@
                   <svg fill="currentColor" width="24" height="6">
                     <path
                       d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
-                      style="color: rgba(163, 163, 163, .5)" />
+                      style="color: rgba(163, 163, 163, .5)"/>
                   </svg>
                 </button>
                 <ul

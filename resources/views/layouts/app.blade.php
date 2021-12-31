@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Laracasts Voting</title>
+  <title>{{ $title ?? 'Laracasts Voting' }}</title>
 
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
@@ -49,8 +49,7 @@
     @endif
     <a href="#">
       <img
-        src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCaesarSidePart&accessoriesType=Sunglasses&hairColor=Brown&facialHairType=Blank&clotheType=ShirtVNeck&clotheColor=PastelOrange&eyeType=Hearts&eyebrowType=DefaultNatural&mouthType=Default&skinColor=DarkBrown'
-        alt="avatar" class="w-10 h-10 rounded-full">
+        src="{{ auth()->user()->getAvatar() }}" alt="avatar" class="w-10 h-10 rounded-full"/>
     </a>
   </div>
 </header>
@@ -110,11 +109,10 @@
   </div>
 </main>
 
-@if (session('error_message'))
+@if (session('success_message'))
   <x-notification-success
-    type="error"
     :redirect="true"
-    message-to-display="{{ (session('error_message')) }}"
+    message-to-display="{{ (session('success_message')) }}"
   />
 @endif
 
