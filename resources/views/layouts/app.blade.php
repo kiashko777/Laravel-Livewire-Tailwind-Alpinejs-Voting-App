@@ -24,16 +24,20 @@
     @if (Route::has('login'))
       <div class="px-6 py-4">
         @auth
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <p>Weclome, <strong>{{ auth()->user()->name }}</strong></p>
-            <a href="{{ route('logout') }}"
-               onclick="event.preventDefault();
+          <div class="flex items-center space-x-4">
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              {{--              <p>Weclome, <strong>{{ auth()->user()->name }}</strong></p>--}}
+              <a href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
                this.closest('form').submit();">
-              {{ __('Log out') }}
-            </a>
-          </form>
+                {{ __('Log out') }}
+              </a>
+            </form>
 
+            <livewire:comment-notifications/>
+
+          </div>
         @else
           <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
@@ -106,10 +110,11 @@
   </div>
 </main>
 
-@if (session('success_message'))
+@if (session('error_message'))
   <x-notification-success
+    type="error"
     :redirect="true"
-    message-to-display="{{ (session('success_message')) }}"
+    message-to-display="{{ (session('error_message')) }}"
   />
 @endif
 

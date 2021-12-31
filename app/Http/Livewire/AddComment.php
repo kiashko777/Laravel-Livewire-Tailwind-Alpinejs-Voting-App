@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Comment;
 use App\Models\Idea;
+use App\Notifications\CommentAdded;
 use Illuminate\Http\Response;
 use Livewire\Component;
 
@@ -11,9 +12,8 @@ class AddComment extends Component
 {
   public $idea;
   public $comment;
-
   protected $rules = [
-    'comment' => 'required|min:4'
+    'comment' => 'required|min:4',
   ];
 
   public function mount(Idea $idea)
@@ -26,20 +26,22 @@ class AddComment extends Component
     if (auth()->guest()) {
       abort(Response::HTTP_FORBIDDEN);
     }
+
     $this->validate();
 
-    Comment::create([
+    $newComment = Comment::create([
       'user_id' => auth()->id(),
       'idea_id' => $this->idea->id,
       'status_id' => 1,
-      'body' => $this->comment
+      'body' => $this->comment,
     ]);
 
     $this->reset('comment');
 
-    $this->emit('commentWasAdded', 'Comment was added!');
-  }
+    $this->idea->user->notify(new CommentAdded($newComment));
 
+    $this->emit('commentWasAdded', 'Comment was posted!');
+  }
 
   public function render()
   {
